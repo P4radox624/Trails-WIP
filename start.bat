@@ -1,2 +1,2 @@
-cd C:\Users\ArisTendou\Documents\Application_Development\FINAL
+cd Path\to\Project
 python login_gui.py
