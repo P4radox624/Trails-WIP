@@ -3,7 +3,6 @@ from tkinter import messagebox
 import db_connection
 import bcrypt as hash
 import re
-import requests
 
 def is_valid_email(email):
     email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -13,7 +12,7 @@ def send_verification_email(email):
     #WIP: Sending Verification Email
     print(f"Verification email sent to {email}. Please check your inbox.")
 
-def register(username, password, email):
+def register(username, password, password2, email):
     if not username or not password or not email:
         messagebox.showerror("Error", "Please fill in all fields.")
         return
@@ -23,6 +22,10 @@ def register(username, password, email):
         return
 
     send_verification_email(email)
+
+    if(password != password2):
+        messagebox.showerror("Error", "Passwords doesn't match")
+        return
 
     # Hash the password using sha256
     hashed_password = hash.hashpw(password.encode(), hash.gensalt())
@@ -41,6 +44,7 @@ def register(username, password, email):
         # Clear the entry fields
         entry_username_register.delete(0, tk.END)
         entry_password_register.delete(0, tk.END)
+        entry_password_register2.delete(0, tk.END)
         entry_email_register.delete(0, tk.END)
 
     except db_connection.mysql.connector.Error as err:
@@ -96,9 +100,9 @@ def center_window(window):
 root = tk.Tk()
 root.title("Login System")
 
-# Convert cm to pixels based on typical screen resolution (96 DPI)
-width_pixels = int(8 * 96 / 2.54)
-height_pixels = int(6 * 96 / 2.54)
+
+width_pixels = int(9 * 96 / 2.54)
+height_pixels = int(7 * 96 / 2.54)
 root.geometry(f"{width_pixels}x{height_pixels}")
 
 login_frame = tk.Frame(root)
@@ -129,17 +133,22 @@ lbl_username_register.pack()
 entry_username_register = tk.Entry(register_frame)
 entry_username_register.pack()
 
-lbl_password_register = tk.Label(register_frame, text="Password:")
-lbl_password_register.pack()
-entry_password_register = tk.Entry(register_frame, show="*")
-entry_password_register.pack()
-
 lbl_email_register = tk.Label(register_frame, text="Email:")
 lbl_email_register.pack()
 entry_email_register = tk.Entry(register_frame)
 entry_email_register.pack()
 
-btn_register = tk.Button(register_frame, text="Register", command=lambda: register(entry_username_register.get(), entry_password_register.get(), entry_email_register.get()))
+lbl_password_register = tk.Label(register_frame, text="Password:")
+lbl_password_register.pack()
+entry_password_register = tk.Entry(register_frame, show="*")
+entry_password_register.pack()
+
+lbl_password_register2 = tk.Label(register_frame, text="Confirm Password:")
+lbl_password_register2.pack()
+entry_password_register2 = tk.Entry(register_frame, show="*")
+entry_password_register2.pack()
+
+btn_register = tk.Button(register_frame, text="Register", command=lambda: register(entry_username_register.get(), entry_password_register.get(), entry_password_register2.get(), entry_email_register.get()))
 btn_register.pack()
 
 lbl_login = tk.Label(register_frame, text="Already have an account?")
