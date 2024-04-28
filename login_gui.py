@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import ttk
 import db_connection
 import bcrypt as hash
 import re
+
 
 def is_valid_email(email):
     email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -12,19 +14,22 @@ def send_verification_email(email):
     #WIP: Sending Verification Email
     print(f"Verification email sent to {email}. Please check your inbox.")
 
+def show_error(message):
+    messagebox.showerror("Error", message)
+
 def register(username, password, password2, email):
     if not username or not password or not email:
-        messagebox.showerror("Error", "Please fill in all fields.")
+        show_error("Please fill in all fields.")
         return
 
     if not is_valid_email(email):
-        messagebox.showerror("Error", "Please enter a valid email address.")
+        show_error("Please enter a valid email address.")
         return
 
     send_verification_email(email)
 
     if(password != password2):
-        messagebox.showerror("Error", "Passwords doesn't match")
+        show_error("Passwords doesn't match.")
         return
 
     # Hash the password using sha256
@@ -72,10 +77,10 @@ def login(username, password):
             import home_screen
             home_screen.show_home_screen(username,root)
         else:
-            messagebox.showerror("Error", "Invalid username or password!")
+            show_error("Invalid username or password!")
 
     except db_connection.mysql.connector.Error as err:
-        messagebox.showerror("Error", err)
+        show_error(err)
 
     finally:
         cursor.close()

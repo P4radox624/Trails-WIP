@@ -1,5 +1,11 @@
 import tkinter as tk
+from tkinter import messagebox
+from tkinter import ttk
 
+
+def show_error(message):
+    messagebox.showerror("Error", message)
+    
 def center_window(window):
     window.update_idletasks()
     width = window.winfo_width()
