@@ -144,15 +144,15 @@ register_frame = tk.Frame(root)
 # Common padding configuration
 padding_y = (10, 5)
 
+# Title Label
+lbl_title = tk.Label(login_frame, text="TRAILS", font=("yu gothic ui", 20, "bold"), width=25, bd=0)
+lbl_title.grid(row=0, column=0, pady=(0, 5), sticky="ew")
+
 # Logo
 logo_image = tk.PhotoImage(file=media.sp_logo)
 logo_image_resized = logo_image.subsample(20)
 logo_label = tk.Label(login_frame, image=logo_image_resized)
 logo_label.grid(row=0, column=0, columnspan=3, padx=20, pady=20, sticky="w")
-
-# Title Label
-lbl_title = tk.Label(login_frame, text="TRAILS", font=("yu gothic ui", 20, "bold"), width=25, bd=0)
-lbl_title.grid(row=0, column=1, pady=(0, 5), sticky="ew")
 
 # Username and Password Container Frame
 login_entry_frame = tk.Frame(login_frame)
@@ -199,25 +199,25 @@ register_frame.grid_columnconfigure(1, weight=1)  # Allow column to expand
 # Username Label and Entry
 lbl_username_register = tk.Label(register_frame, text="Username:", font=("yu gothic ui", 12))
 lbl_username_register.grid(row=2, column=0, padx=5, pady=padding_y)
-entry_username_register = tk.Entry(register_frame)
+entry_username_register = tk.Entry(register_frame, width=25)
 entry_username_register.grid(row=2, column=1, padx=5, pady=padding_y)
 
 # Email Label and Entry
 lbl_email_register = tk.Label(register_frame, text="Email:", font=("yu gothic ui", 12))
 lbl_email_register.grid(row=3, column=0, padx=5, pady=padding_y)
-entry_email_register = tk.Entry(register_frame)
+entry_email_register = tk.Entry(register_frame, width=25)
 entry_email_register.grid(row=3, column=1, padx=5, pady=padding_y)
 
 # Password Label and Entry
 lbl_password_register = tk.Label(register_frame, text="Password:", font=("yu gothic ui", 12))
 lbl_password_register.grid(row=4, column=0, padx=5, pady=padding_y)
-entry_password_register = tk.Entry(register_frame, show="*")
+entry_password_register = tk.Entry(register_frame, show="*", width=25)
 entry_password_register.grid(row=4, column=1, padx=5, pady=padding_y)
 
 # Confirm Password Label and Entry
 lbl_password_register2 = tk.Label(register_frame, text="Confirm Password:", font=("yu gothic ui", 12))
 lbl_password_register2.grid(row=5, column=0, padx=5, pady=padding_y)
-entry_password_register2 = tk.Entry(register_frame, show="*")
+entry_password_register2 = tk.Entry(register_frame, show="*", width=25)
 entry_password_register2.grid(row=5, column=1, padx=5, pady=padding_y)
 
 # Eye Button for Password
@@ -231,16 +231,16 @@ eye_button_register.grid(row=5, column=2, padx=5, pady=padding_y, sticky="w")
 # Register Button
 btn_register = tk.Button(register_frame, text="SIGN UP", command=lambda: register(entry_username_register.get(), entry_password_register.get(), entry_password_register2.get(), entry_email_register.get()), font=("yu gothic ui", 13, "bold"),
                           width=25, bd=0, bg='#e21818', cursor='hand2', activebackground='#e21818', fg='white')
-btn_register.grid(row=6, column=0, columnspan=4, pady=(15, 0), padx=10)
+btn_register.grid(row=6, column=1, columnspan=4, pady=(15, 0), padx=10)
 
 # "Already have an account?" Label
 lbl_login = tk.Label(register_frame, text="Already have an account?", font=("yu gothic ui", 12))
-lbl_login.grid(row=7, column=0, columnspan=4, pady=padding_y)
+lbl_login.grid(row=7, column=1, columnspan=4, pady=padding_y)
 
 # "LOGIN" Button
 btn_login = tk.Button(register_frame, text="LOGIN", command=show_login_screen, font=("yu gothic ui", 13, "bold"),
                       width=25, bd=0, bg='#e21818', cursor='hand2', activebackground='#e21818', fg='white')
-btn_login.grid(row=8, column=0, columnspan=4, pady=(0, 10), padx=10)
+btn_login.grid(row=8, column=1, columnspan=4, pady=(0, 10), padx=10)
 
 show_login_screen()  # Show login screen by default
 
